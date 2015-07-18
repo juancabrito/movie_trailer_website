@@ -1,0 +1,253 @@
+
+<head>
+    <meta charset="utf-8">
+    <title>Fresh Tomatoes!</title>
+
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/3.1.0/js/bootstrap-tooltip.js"></script>
+
+    <!-- Couple of fonts for the main title! -->
+    <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    
+    <style type="text/css" media="screen">
+        body {
+            padding-top: 80px;
+            background-image: url(bg_vault.png);
+            background-size: 1500px;
+            background-position: center 88px;
+        }
+        #trailer .modal-dialog {
+            margin-top: 200px;
+            width: 95%;
+        }
+        .hanging-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            z-index: 9001;
+        }
+        #trailer-video {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* === Standard DVD background image === */
+        .movie-tile {
+            margin: 33px 46px;
+            padding-top: 8px;
+            background: transparent url(dvd.png) no-repeat center top;
+            background-size: contain;
+            height: 250px;
+            position: relative;
+            width: 189px;
+        }
+        /* ================ */
+
+        /* === Poster image as DVD cover, with more info on a label === */
+        /* === Label will only be shown on mouse over                   */
+        .movie-tile .poster-img {
+          background-repeat:no-repeat;
+          background-position: center top;
+          background-size: cover;
+          width: 159px;
+          height: 223px;
+          position: absolute;
+          left: 6px;
+          -webkit-border-top-right-radius: 4px;
+          -webkit-border-bottom-right-radius: 4px;
+          -moz-border-radius-topright: 4px;
+          -moz-border-radius-bottomright: 4px;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+        .movie-tile .movie-label {
+          position: absolute;
+          font-size: 14px;
+          font-family: 'Slabo 27px', serif;
+          color: #fff;
+          text-align: center;
+          background: rgba(50,50,50,0.9) url('bg_label.png') repeat-x left top;
+          padding: 20px 10px 10px; 
+          bottom: 0.5em;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          width: 190px;
+          border-bottom: 1px solid #000;
+          display: none;
+        }
+        .movie-tile:hover .movie-label {
+          display: block;
+        }
+        .movie-tile:hover {
+            cursor: pointer;
+        }
+        /* ================ */
+
+        .scale-media {
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        .scale-media iframe {
+            border: none;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background-color: white;
+        }
+
+        /* === Complements === */
+        .navbar {border-bottom: solid 2px #d59256;}
+        .navbar-header {height: 85px; text-align: center; margin: 0 auto; float: none;}
+        .navbar-header h1 {margin: 10px 0 3px; padding: 0; color: #fff; font-size: 2.3em;font-family: 'Slabo 27px', serif;}
+        .navbar-header h2 {margin: 0; color: #fff; font-size: 1.7em; font-family: 'Pacifico', cursive; color: #d59256;}
+        .tooltip {font-family: Arial, Helvetica, sans-serif;}
+        .tooltip .tooltip-inner {text-align: left; padding: 10px;}
+        .footer {padding: 10px 0; text-align: center; color: #ead1b5; font-size: 11px;}
+        /* ================ */
+
+        /* === A small adjustment to keep responsiveness === */
+        @media (min-width: 1000px) {
+          #trailer .modal-dialog {
+              margin-top: 100px;
+              width: 85%;
+          }
+        }
+        /* ================ */
+        
+    </style>
+
+    <script type="text/javascript" charset="utf-8">
+        // Pause the video when the modal is closed
+        $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
+            // Remove the src so the player itself gets removed, as this is the only
+            // reliable way to ensure the video stops playing in IE
+            $("#trailer-video-container").empty();
+        });
+        // Start playing the video whenever the trailer modal is opened
+        $(document).on('click', '.movie-tile', function (event) {
+            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
+            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+            $("#trailer-video-container").empty().append($("<iframe></iframe>", {
+              'id': 'trailer-video',
+              'type': 'text-html',
+              'src': sourceUrl,
+              'frameborder': 0
+            }));
+        });
+        // Animate in the movies when the page loads
+        $(document).ready(function () {
+          $('.movie-tile').hide().first().show("fast", function showNext() {
+            $(this).next("div").show("fast", showNext);
+          });
+        });
+
+        // Initialize tooltips 
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</head>
+
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <!-- Trailer Video Modal -->
+    <div class="modal" id="trailer">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          </a>
+          <div class="scale-media" id="trailer-video-container">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Page Content -->
+    <div class="container">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <h1>Movie Trailers Online</h1>
+            <h2>Juancabrito's favorites</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="qxyUl9M_7vc" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BOTI5ODc3NzExNV5BMl5BanBnXkFtZTcwNzYxNzQzMw@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">V for Vendetta (2005) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="In a future British tyranny, a shadowy freedom fighter, known only by the alias of "V", plots to overthrow it with the help of a young woman."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="qk0XnyrENrE" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMTI0MDc0MzIyM15BMl5BanBnXkFtZTYwMzc4NzA5._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Almost Famous (2000) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="A high-school boy is given the chance to write a story for Rolling Stone Magazine about an up-and-coming rock band as he accompanies it on their concert tour."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="MdCc_NBlQC4" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMTM5NDM3NDc1OF5BMl5BanBnXkFtZTcwNzE1MzcyMQ@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Closer (2004) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="The relationships of two couples become complicated and deceitful when the man from one couple meets the woman of the other."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="J5-LqwUHTaM" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMTkwNTg2MTI1NF5BMl5BanBnXkFtZTcwMDM1MzUyMQ@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Dogville (2003) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="A woman on the run from the mob is reluctantly accepted in a small Colorado town. In exchange, she agrees to work for them. As a search visits town, she finds out that their support has a price. Yet her dangerous secret is never far away..."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="ni4tEtuTccc" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMTk5NzE0MDQyNl5BMl5BanBnXkFtZTcwNzk4Mjk3OA@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Snatch. (2000) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Unscrupulous boxing promoters, violent bookmakers, a Russian gangster, incompetent amateur robbers, and supposedly Jewish jewelers fight to track down a priceless stolen diamond."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="9e590FeeGCM" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMTUzMjU2MTA0MV5BMl5BanBnXkFtZTcwNjI2NzE5Mg@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Paris, Texas (1984) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="A man is found in the desert after four years."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="UUxD4-dEzn0" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMTQ1Nzg3MDQwN15BMl5BanBnXkFtZTcwNDE2NDU2MQ@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Taxi Driver (1976) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="A mentally unstable Vietnam war veteran works as a night-time taxi driver in New York City where the perceived decadence and sleaze feeds his urge for violent action, attempting to save a preadolescent prostitute in the process."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="Zm7r491n-8o" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMTk4NjQwNTc0OV5BMl5BanBnXkFtZTYwOTQzNTA3._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Fear and Loathing in Las Vegas (1998) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="An oddball journalist and his psychopathic lawyer travel to Las Vegas for a series of psychedelic escapades."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="D3Yw9Yc1YmY" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMjIwNTYzMzE1M15BMl5BanBnXkFtZTcwOTE5Mzg3OA@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Fight Club (1999) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="An insomniac office worker, looking for a way to change his life, crosses paths with a devil-may-care soap maker, forming an underground fight club that evolves into something much, much more..."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="gzrHrTVaqJs" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMjEzMzg4NTIyOF5BMl5BanBnXkFtZTcwNjM3MzgzMQ@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Babel (2006) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Tragedy strikes a married couple on vacation in the Moroccan desert, touching off an interlocking story involving four different families."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="3ycmmJ6rxA8" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMjM4NTI5NzYyNV5BMl5BanBnXkFtZTgwNTkxNTYxMTE@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">American Beauty (1999) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="A sexually frustrated suburban father has a mid-life crisis after becoming infatuated with his daughter's best friend."></span></h2>
+</div>
+
+<div class="col-md-4 col-lg-3 col-sm-6 col-xs-6 movie-tile text-center" data-trailer-youtube-id="fccho1IyX8Y" data-toggle="modal" data-target="#trailer">
+    <div class="poster-img" style="background-image: url(http://ia.media-imdb.com/images/M/MV5BMjE3MDM4NTg0NV5BMl5BanBnXkFtZTcwNjI4MTczMw@@._V1_SX300.jpg);"></div>
+    <h2 class="movie-label">Lemony Snicket's A Series of Unfortunate Events (2004) &nbsp;&nbsp; <span class="glyphicon glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="When a massive fire kills their parents, three children are delivered to the custody of cousin and stage actor Count Olaf, who is secretly plotting to steal their parents' vast fortune."></span></h2>
+</div>
+
+    </div>
+    <div class="footer">
+      Thanks to: OMDb, PSDcovers.com
+    </div>
+  </body>
+</html>

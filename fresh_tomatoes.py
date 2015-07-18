@@ -11,11 +11,14 @@ main_page_head = '''
     <!-- Bootstrap 3 -->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/3.1.0/js/bootstrap-tooltip.js"></script>
+
+    <!-- Couple of fonts for the main title! -->
+    <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+
     <style type="text/css" media="screen">
         body {
             padding-top: 80px;
@@ -26,7 +29,6 @@ main_page_head = '''
         #trailer .modal-dialog {
             margin-top: 200px;
             width: 95%;
-            /*height: 480px;*/
         }
         .hanging-close {
             position: absolute;
@@ -38,6 +40,8 @@ main_page_head = '''
             width: 100%;
             height: 100%;
         }
+
+        /* === Standard DVD background image === */
         .movie-tile {
             margin: 33px 46px;
             padding-top: 8px;
@@ -47,6 +51,10 @@ main_page_head = '''
             position: relative;
             width: 189px;
         }
+        /* ================ */
+
+        /* === Poster image as DVD cover, with more info on a label === */
+        /* === Label will only be shown on mouse over                   */
         .movie-tile .poster-img {
           background-repeat:no-repeat;
           background-position: center top;
@@ -69,7 +77,7 @@ main_page_head = '''
           color: #fff;
           text-align: center;
           background: rgba(50,50,50,0.9) url('bg_label.png') repeat-x left top;
-          padding: 20px 10px 10px; 
+          padding: 20px 10px 10px;
           bottom: 0.5em;
           left: 0;
           right: 0;
@@ -84,6 +92,8 @@ main_page_head = '''
         .movie-tile:hover {
             cursor: pointer;
         }
+        /* ================ */
+
         .scale-media {
             padding-bottom: 56.25%;
             position: relative;
@@ -97,22 +107,42 @@ main_page_head = '''
             top: 0;
             background-color: white;
         }
-        .navbar {border-bottom: solid 2px #d59256;}
-        .navbar-header {height: 85px; text-align: center; margin: 0 auto; float: none;}
-        .navbar-header h1 {margin: 10px 0 3px; padding: 0; color: #fff; font-size: 2.3em;font-family: 'Slabo 27px', serif;}
-        .navbar-header h2 {margin: 0; color: #fff; font-size: 1.7em; font-family: 'Pacifico', cursive; color: #d59256;}
-        .tooltip {font-family: Arial, Helvetica, sans-serif;}
-        .tooltip .tooltip-inner {text-align: left; padding: 10px;}
-        .footer {padding: 10px 0; text-align: center; color: #ead1b5; font-size: 11px;}
 
+        /* === Complements === */
+        .navbar {
+            border-bottom: solid 2px #d59256;
+        }
+        .navbar-header {
+            height: 85px; text-align: center; margin: 0 auto; float: none;
+        }
+        .navbar-header h1 {
+            margin: 10px 0 3px; padding: 0; color: #fff; font-size: 2.3em;font-family: 'Slabo 27px', serif;
+        }
+        .navbar-header h2 {
+            margin: 0; color: #fff; font-size: 1.7em; font-family: 'Pacifico', cursive; color: #d59256;
+        }
+        .tooltip {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .tooltip .tooltip-inner {
+            text-align: left; padding: 10px;
+        }
+        .footer {
+            padding: 10px 0; text-align: center; color: #ead1b5; font-size: 11px;
+        }
+        /* ================ */
+
+        /* === A small adjustment to keep responsiveness === */
         @media (min-width: 1000px) {
           #trailer .modal-dialog {
               margin-top: 100px;
               width: 85%;
           }
         }
-        
+        /* ================ */
+
     </style>
+
     <script type="text/javascript" charset="utf-8">
         // Pause the video when the modal is closed
         $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
@@ -138,7 +168,7 @@ main_page_head = '''
           });
         });
 
-        // Initialize tooltips 
+        // Initialize tooltips
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
         })
@@ -163,7 +193,7 @@ main_page_content = '''
         </div>
       </div>
     </div>
-    
+
     <!-- Main Page Content -->
     <div class="container">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
