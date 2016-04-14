@@ -123,6 +123,7 @@ main_page_head = '''
         }
         .tooltip {
             font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
         }
         .tooltip .tooltip-inner {
             text-align: left; padding: 10px;
@@ -209,7 +210,9 @@ main_page_content = '''
       {movie_tiles}
     </div>
     <div class="footer">
-      Thanks to: OMDb, PSDcovers.com
+      <img src="https://assets.tmdb.org/images/logos/var_1_0_PoweredByTMDB_Blk_Antitled.png" width="150px" />
+      <br />
+      Thanks to: PSDcovers.com
     </div>
   </body>
 </html>
