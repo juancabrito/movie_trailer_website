@@ -1,5 +1,5 @@
 # Movie Trailer Website
-This is a programming simple exercise. 
+This is a simple programming exercise. 
 
 This will launch a web page containing a selection of my favorite movies. The information about each movie, including its poster, comes from OMDb using its API.
 Using Bootstrap, the page shows the plot in a tooltip.
